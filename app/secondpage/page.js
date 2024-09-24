@@ -6,6 +6,7 @@ import Image from 'next/image';
 const SecondPage = () => {
     const [isClient, setIsClient] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isImageLoading, setIsImageLoading] = useState(true);
 
     const images = [
         { src: "/assets/images/image1.png", caption: "First pic together AHAHHAHA. pina joshua garcia na nga angol BWAHAHHAHA! 7/11 pani nya naa pas sati abikog kita ray mang lakaw ana ba HAHAHHAAHA" },
@@ -29,6 +30,7 @@ const SecondPage = () => {
     }
 
     const handleNextImage = () => {
+        setIsImageLoading(true);
         setCurrentImageIndex((prevIndex) => 
             prevIndex === images.length - 1 ? prevIndex : prevIndex + 1
         );
@@ -60,7 +62,18 @@ const SecondPage = () => {
                         <br></br>
                         <div className="flex flex-col items-center">
                             <div className="relative w-[300px] h-[300px]">
-                                <Image src={images[currentImageIndex].src} alt="Image" layout="fill" objectFit="cover" />
+                                {isImageLoading && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+                                    </div>
+                                )}
+                                <Image 
+                                    src={images[currentImageIndex].src} 
+                                    alt="Image" 
+                                    layout="fill" 
+                                    objectFit="cover" 
+                                    onLoadingComplete={() => setIsImageLoading(false)}
+                                />
                             </div>
                             <p className="mt-2">{images[currentImageIndex].caption}</p>
                             {currentImageIndex < images.length - 1 && (
