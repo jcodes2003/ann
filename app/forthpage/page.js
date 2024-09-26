@@ -1,23 +1,11 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 const ForthPage = () => {
-    const [videoEnded, setVideoEnded] = useState(false);
-    const [showQuestion, setShowQuestion] = useState(false);
+    const [showQuestion, setShowQuestion] = useState(true);
     const [showCelebration, setShowCelebration] = useState(false);
     const [noButtonPosition, setNoButtonPosition] = useState({ top: '50%', left: '60%' });
-    const videoRef = useRef(null);
     const noButtonRef = useRef(null);
-
-    useEffect(() => {
-        if (videoEnded) {
-            setTimeout(() => setShowQuestion(true), 1000);
-        }
-    }, [videoEnded]);
-
-    const handleVideoEnd = () => {
-        setVideoEnded(true);
-    };
 
     const handleYes = () => {
         setShowCelebration(true);
@@ -37,18 +25,9 @@ const ForthPage = () => {
 
     return (
         <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center">
-            {!videoEnded && (
-                <video
-                    ref={videoRef}
-                    src="/assets/images/video.mp4"
-                    className="w-full max-w-3xl"
-                    autoPlay
-                    onEnded={handleVideoEnd}
-                />
-            )}
             {showQuestion && !showCelebration && (
                 <div className="text-center">
-                    <h2 className="text-3xl mb-8">Would you accept me as your boyfriend?</h2>
+                    <h2 className="text-3xl mb-8">Would you love to put label on what we have right now?</h2>
                     <div className="space-x-4">
                         <button
                             onClick={handleYes}
